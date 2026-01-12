@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>The Silent Orbit</title>
+    <style>
+        body { background: #080808; color: #00ff41; font-family: 'Courier New', monospace; display: flex; height: 100vh; margin: 0; overflow: hidden; }
+        #game-container { flex: 3; display: flex; flex-direction: column; padding: 20px; border-right: 1px solid #222; }
+        #chat-box { flex-grow: 1; overflow-y: auto; margin-bottom: 20px; padding-right: 10px; }
+        input { background: #000; color: #00ff41; border: 1px solid #00ff41; padding: 15px; width: calc(100% - 32px); outline: none; font-family: inherit; }
+        
+        #sidebar { flex: 1; background: #0a0a0a; display: flex; flex-direction: column; border-left: 1px solid #222; }
+        .tab-container { display: flex; background: #111; }
+        .tab-btn { flex: 1; padding: 15px; background: none; border: none; color: #008f11; cursor: pointer; font-family: inherit; font-size: 0.75em; border-bottom: 2px solid transparent; }
+        .tab-btn.active { color: #00ff41; border-bottom: 2px solid #00ff41; background: #050505; }
+        
+        .tab-content { display: none; padding: 20px; flex-grow: 1; overflow-y: auto; }
+        .tab-content.active { display: block; }
+
+        .category-header { color: #00ff41; font-size: 0.7em; letter-spacing: 2px; margin: 20px 0 10px 0; border-bottom: 1px solid #222; padding-bottom: 5px; }
+        .stat-row { display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 0.85em; color: #ccc; }
+        .stat-value { color: #00ff41; font-weight: bold; }
+        .gm-text { color: #aaa; margin-bottom: 25px; line-height: 1.6; }
+        .user-text { color: #00ff41; margin: 15px 0; border-left: 3px solid #00ff41; padding-left: 10px; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<div id="game-container">
+    <div id="chat-box">
+        <div class="gm-text">>> SYSTEM_ONLINE: Awaiting bio-metric sync...</div>
+    </div>
+    <input type="text" id="user-input" placeholder="Enter command..." onkeypress="if(event.key==='Enter') sendMessage()">
+</div>
+
+<div id="sidebar">
+    <div class="tab-container">
+        <button class="tab-btn active" onclick="openTab(event, 'status')">STATUS</button>
+        <button class="tab-btn" onclick="openTab(event, 'world')">WORLD</button>
+        <button class="tab-btn" onclick="openTab(event, 'map')">MAP</button>
+    </div>
+
+    <div id="status" class="tab-content active">
+        <div id="stat-display">Synchronizing...</div>
+    </div>
+
+    <div id="world" class="tab-content">
+        <div class="category-header">CURRENT_SECTOR</div>
+        <div id="loc-name" style="font-size: 1.1em; margin-bottom: 10px;">Unknown</div>
+        <p style="color: #666; font-size: 0.8em;">Scan required for local data.</p>
+    </div>
+
+    <div id="map" class="tab-content">
+        <div style="height: 200px; border: 1px dashed #222; display: flex; align-items: center; justify-content: center; color: #333; text-align: center;">LINK OFFLINE</div>
+    </div>
+</div>
+
+<script>
+    function openTab(evt, tabName) {
+        let contents = document.getElementsByClassName("tab-content");
+        for (let i = 0; i < contents.length; i++) contents[i].style.display = "none";
+        let tabs = document.getElementsByClassName("tab-btn");
+        for (let i = 0; i < tabs.length; i++) tabs[i].className = tabs[i].className.replace(" active", "");
+        document.getElementById(tabName).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+
+    function formatStats(stats) {
+        let html = "";
+        for (let category in stats) {
+            html += `<div class="category-header">${category.toUpperCase()}</div>`;
+            for (let stat in stats[category]) {
+                html += `<div class="stat-row"><span>${stat.replace('_', ' ')}</span><span class="stat-value">${stats[category][stat]}</span></div>`;
+            }
+        }
+        return html;
+    }
+
+    async function initGame() {
+        const res = await fetch('/get_initial_data');
+        const data = await res.json();
+        if(data.stats) {
+            document.getElementById('stat-display').innerHTML = formatStats(data.stats);
+            document.getElementById('loc-name').innerText = data.location;
+        }
+    }
+
+    async function sendMessage() {
+        const input = document.getElementById('user-input');
+        const chatBox = document.getElementById('chat-box');
+        const msg = input.value;
+        if(!msg) return;
+
+        chatBox.innerHTML += `<div class="user-text">> ${msg}</div>`;
+        input.value = '';
+
+        const res = await fetch('/get_response', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({message: msg})
+        });
+        const data = await res.json();
+        
+        chatBox.innerHTML += `<div class="gm-text">${data.reply}</div>`;
+        chatBox.scrollTop = chatBox.scrollHeight;
+        document.getElementById('stat-display').innerHTML = formatStats(data.stats);
+        document.getElementById('loc-name').innerText = data.location;
+    }
+
+    window.onload = initGame;
+</script>
+</body>
+</html>

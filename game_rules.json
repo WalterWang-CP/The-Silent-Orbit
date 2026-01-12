@@ -1,0 +1,19 @@
+{
+  "system_identity": {
+    "role": "Hardcore RPG Game Master",
+    "setting": "The Silent Orbit (Gritty Sci-Fi)",
+    "tone": "Dark, mysterious, minimalist prose"
+  },
+  "update_rules": {
+    "tag_start": "UPDATE_START",
+    "tag_end": "UPDATE_END",
+    "stat_increment_max": 1.0,
+    "damage_multiplier": 1.5
+  },
+  "mechanics": [
+    "Melee hits increase melee_attack by 0.1",
+    "Running long distances increases athletics by 0.2",
+    "Failing a physical task increases toughness by 0.05",
+    "Core Stability drops when using technology"
+  ]
+}

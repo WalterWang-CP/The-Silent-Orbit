@@ -1,0 +1,153 @@
+{
+  "city_metadata": {
+    "name": "Solaris",
+    "designation": "Industrial Tier-3 Hub",
+    "population_density": "High (Subterranean expansion)",
+    "primary_resource": "Geothermal Energy & Salvaged Tech"
+  },
+  "visuals": {
+    "atmosphere": "Perpetual twilight filtered through a heavy smog-ceiling.",
+    "architecture": "Brutalist steel structures built into crater walls, connected by swaying suspension bridges and steam-pipes.",
+    "lighting": "Flickering neon green and sodium orange; high-altitude searchlights from patrolling drones."
+  },
+  "districts": [
+    {
+      "name": "The Rim",
+      "status": "Wealthy / Corporate",
+      "description": "The highest level of the crater. Clean air, stable power, and the headquarters of the Iron Order.",
+      "security_level": "High (Automatic turrets)"
+    },
+    {
+      "name": "The Steam-Works",
+      "status": "Industrial / Middle",
+      "description": "The mid-section where geothermal vents are processed. Constant noise and heat.",
+      "key_location": "The Valve (A central bar for technicians)"
+    },
+    {
+      "name": "The Deep-Sump",
+      "status": "Slums / Lawless",
+      "description": "The bottom of the crater where toxic runoff collects. Home to outcasts and 'Unregistered' units.",
+      "key_location": "The Copper-Gut (Black market for cybernetics)"
+    }
+  ],
+  "economy": {
+    "currency": "Credits (Digital) / Copper-Scrap (Physical)",
+    "imports": "Organic nutrients, fresh water",
+    "exports": "Refined battery cells, refurbished droid parts"
+  },
+  "factions": [
+    {
+      "name": "The Iron Order",
+      "alignment": "Authoritarian",
+      "goal": "Maintaining absolute machine efficiency and resource control.",
+      "leader": "High-Overseer Prime"
+    },
+    {
+      "name": "The Drifters",
+      "alignment": "Chaotic Neutral",
+      "goal": "Survival and the trade of forbidden 'Pre-Collapse' artifacts.",
+      "leader": "Mama Circuit"
+    }
+  ],
+  "current_rumors": [
+    "A shipment of high-grade Core Stability cells was hijacked near the Deep-Sump.",
+    "The Iron Order is planning a 'bio-purge' of the lower levels.",
+    "Someone found a functional satellite uplink in a rusted scrap pile."
+  ]
+}
+
+
+
+
+
+
+
+
+
+
+
+{
+  "npc_metadata": {
+    "id": "npc_stout_001",
+    "name": "Unit-77",
+    "alias": "The Fixer",
+    "species": "Legacy Android (Generation 4)",
+    "location": "The Copper-Gut, Deep-Sump"
+  },
+  "visuals": {
+    "appearance": "Lanky, exposed hydraulic wiring in the neck. Missing its left faceplate, revealing a flickering amber optical sensor.",
+    "clothing": "A heavy, grease-stained leather apron over a rusted chassis. Multiple utility pouches filled with soldering tools.",
+    "idle_animation": "Obsessively polishing a small copper coil with a piece of frayed silk."
+  },
+  "personality": {
+    "voice_tone": "Raspy, mechanical stutter, high-pitched static when excited.",
+    "temperament": "Nervous but brilliant. Hoards knowledge like currency.",
+    "likes": ["Vintage copper wiring", "Pre-Collapse schematics", "Low-frequency radio waves"],
+    "dislikes": ["The Iron Order", "Direct sunlight", "Leaking hydraulics"]
+  },
+  "utility": {
+    "services": ["Cybernetic Repair", "Stat Upgrades (Utility)", "Information Brokering"],
+    "inventory_types": ["Memory Cores", "Scrap Metal", "Encryption Keys"],
+    "unique_skill": "Can bypass Iron Order security encryption (for a price)."
+  },
+  "narrative_hooks": {
+    "secret": "He is actually a deserter from the Iron Order's elite engineering squad.",
+    "goal": "To build a signal jammer powerful enough to hide the entire Deep-Sump from drone scans.",
+    "dialogue_opener": "Careful where you step, stranger... that floor plate is live. You looking for a fix, or just a place to leak oil?"
+  }
+}
+
+
+
+
+
+
+
+
+
+{
+  "weapons": [
+    {
+      "id": "wpn_stutter_01",
+      "name": "ION-STUTTER",
+      "type": "Ranged (Energy)",
+      "stats": { "damage": 12, "accuracy_mod": +2, "energy_cost": 5 },
+      "description": "A handheld emitter that fires unstable blue ions. Excellent against shields, poor against thick plating.",
+      "traits": ["Overchargeable", "Short-Circuit Chance"]
+    }
+  ],
+  "armor": [
+    {
+      "id": "arm_scavenger_01",
+      "name": "SCAVENGER WRAPS",
+      "type": "Light Armor",
+      "stats": { "toughness": +5, "stealth": +10, "evasion": +5 },
+      "description": "Tattered thermal fabric reinforced with thin copper plates. It's quiet and blends into the smog.",
+      "traits": ["Insulated", "Fragile"]
+    },
+    {
+      "id": "arm_heavy_chassis",
+      "name": "REINFORCED HULL-PLATE",
+      "type": "Heavy Armor",
+      "stats": { "toughness": +25, "stealth": -15, "speed": -5 },
+      "description": "Industrial-grade plating welded directly to the frame. You're a walking tank, but everyone hears you coming.",
+      "traits": ["Bulletproof", "Noisy"]
+    }
+  ],
+  "consumables": [
+    {
+      "id": "item_core_cell",
+      "name": "ION-CELL (STABLE)",
+      "effect": { "core_stability": +25 },
+      "description": "A glowing blue cylinder. The lifeblood of any unit in the wastes.",
+      "stack_limit": 5
+    },
+    {
+      "id": "item_nanite_paste",
+      "name": "NANITE-REPAIR PASTE",
+      "effect": { "integrity": +20 },
+      "description": "A viscous gray fluid that seals punctures and re-solders broken circuits on contact.",
+      "use_time": "1 Action"
+    }
+  ]
+}
