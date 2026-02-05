@@ -2,6 +2,7 @@ import sys
 import os
 import json
 import re
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from flask import Flask, render_template, request, jsonify
 from dotenv import load_dotenv
 from core.validator import validate_ai_text
