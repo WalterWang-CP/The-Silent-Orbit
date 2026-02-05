@@ -1,0 +1,25 @@
+Install dependencies
+pip install pymongo python-dotenv flask google-generativeai
+Initialize database (character + world)
+Run these from the project root:
+
+
+python scripts/init_character.py
+python scripts/init_world.py
+
+
+Run (CLI)
+python core/main.py
+Type commands at KERMAN:.
+Exit with exit or quit.
+
+
+Run (Web)
+python web/app.py
+Open:
+http://127.0.0.1:5000
+If the web UI is unstable, the CLI flow is the primary development path for now.
+
+
+If you want, I can also generate a **matching `.gitignore`** for your exact folders (like `image/`, `novel/`, `database/`, etc.) so you don’t accidentally commit large assets or secrets.
+::contentReference[oaicite:6]{index=6}
